@@ -17,12 +17,12 @@ const states10m = states10mRaw;
 const start = {
   pitch: 0,
   bearing: 0,
-  center: [-100.486052, 37.830348],
+  center: [0, 0],
   minZoom: 2,
   zoom: 3,
 };
 
-// const zoomThreshold = 4;
+const zoomThreshold = 4;
 
 const getColorByStateId = (stateId) => {
   return (
@@ -47,7 +47,7 @@ const stateFeatures = topojson.feature(states10m, states10m.objects.states);
 
 console.log({ stateFeatures, countyFeatures });
 
-const MapAlternate = () => {
+const MapFit = () => {
   const mapRef = React.useRef();
   const tooltipRef = React.useRef(new mapboxgl.Popup({ offset: 15 }));
 
@@ -146,49 +146,7 @@ const MapAlternate = () => {
 
     // let hoveredPolygonId = null;
 
-    mapRef.current.on("load", () => {
-      mapRef.current.addSource("states", {
-        type: "geojson",
-        // data: "https://docs.mapbox.com/mapbox-gl-js/assets/us_states.geojson",
-        data: getData(),
-      });
-      // The feature-state dependent fill-opacity expression will render the hover effect
-      // when a feature's hover state is set to true.
-      mapRef.current.addLayer({
-        id: "state-fills",
-        type: "fill",
-        source: "states",
-        layout: {},
-        // filter: ["==", "isState", true],
-        // maxzoom: zoomThreshold,
-        paint: {
-          "fill-color": ["get", "fillColor"],
-        },
-      });
-
-      mapRef.current.addLayer({
-        id: "county-fills",
-        type: "fill",
-        source: "states",
-        layout: {},
-        // minzoom: zoomThreshold,
-        // filter: ["==", "isCounty", true],
-        paint: {
-          "fill-color": ["get", "fillColor"],
-        },
-      });
-      // mapRef.current.setFilter("state-fills", ["==", "name", "Alabama"]);
-      mapRef.current.addLayer({
-        id: "state-borders",
-        type: "line",
-        source: "states",
-        layout: {},
-        paint: {
-          "line-color": "#FFFFFF",
-          "line-width": 1,
-        },
-      });
-    });
+    mapRef.current.on("load", () => {});
 
     // change cursor to pointer when user hovers over a clickable feature
     mapRef.current.on("mouseenter", (e) => {
@@ -242,9 +200,9 @@ const MapAlternate = () => {
 
   return (
     <div>
-      <div ref={mapContainerRef} className="map-container" />
+      <div ref={mapContainerRef} className="map-fit-container" />
     </div>
   );
 };
 
-export default MapAlternate;
+export default MapFit;

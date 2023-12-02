@@ -1,14 +1,17 @@
 import "./App.css";
-import Map from "./map";
+import MapAlbers from "./map-albers";
 import MapAlternate from "./map-alternate";
-import MapCounty from "./map-county";
+import MapFastSwitch from "./map-fast-switch";
+import MapFit from "./map-fit";
+import MapOutdoor from "./map-outdoor";
 
 function App() {
   return (
     <div>
-      {/* <Map /> */}
       <MapAlternate />
-      {/* <MapCounty /> */}
+      <MapFastSwitch />
+      <MapOutdoor />
+      <MapAlbers />
     </div>
   );
 }
